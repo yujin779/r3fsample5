@@ -19,7 +19,9 @@ export default function Effects() {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
+      {/* https://threejs.org/examples/webgl_postprocessing_ssao.html */}
       <sSAOPass attachArray="passes" args={[scene, camera]} kernelRadius={0.6} maxDistance={0.03} />
+      {/* ネオンの灯りのような光沢を与える */}
       <unrealBloomPass attachArray="passes" args={[aspect, 2, 1, 0.991]} />
       <shaderPass
         attachArray="passes"

@@ -8,6 +8,7 @@ import './styles.css'
 
 const tempObject = new THREE.Object3D()
 const tempColor = new THREE.Color()
+// 作成するboxの数だけランダムでカラーパレットの中から選ぶ
 const colors = new Array(1000).fill().map(() => niceColors[17][Math.floor(Math.random() * 5)])
 
 function Boxes() {
@@ -18,7 +19,7 @@ function Boxes() {
   const previous = useRef()
   useEffect(() => void (previous.current = hovered), [hovered])
 
-  useFrame(state => {
+  useFrame((state) => {
     const time = state.clock.getElapsedTime()
     ref.current.rotation.x = Math.sin(time / 4)
     ref.current.rotation.y = Math.sin(time / 2)
@@ -43,7 +44,7 @@ function Boxes() {
   })
 
   return (
-    <instancedMesh ref={ref} args={[null, null, 1000]} onPointerMove={e => set(e.instanceId)} onPointerOut={e => set(undefined)}>
+    <instancedMesh ref={ref} args={[null, null, 1000]} onPointerMove={(e) => set(e.instanceId)} onPointerOut={(e) => set(undefined)}>
       <boxBufferGeometry attach="geometry" args={[0.7, 0.7, 0.7]}>
         <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
       </boxBufferGeometry>
@@ -56,11 +57,13 @@ ReactDOM.render(
   <Canvas
     gl={{ antialias: false, alpha: false }}
     camera={{ position: [0, 0, 15], near: 5, far: 20 }}
+    // 背景色の設定
     onCreated={({ gl }) => gl.setClearColor('lightpink')}>
     <ambientLight />
     <pointLight position={[150, 150, 150]} intensity={0.55} />
     <Boxes />
-    <Effects />
+    {/* Effect.jsに纏められたEffects */}
+    {/* <Effects /> */}
   </Canvas>,
   document.getElementById('root')
 )
