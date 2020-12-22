@@ -68,7 +68,7 @@ ReactDOM.render(
     <pointLight position={[150, 150, 150]} intensity={0.55} />
     <Boxes />
     {/* Effect.jsに纏められたEffects */}
-    {/* <Effects /> */}
+    <Effects />
   </Canvas>,
   document.getElementById('root')
 )
