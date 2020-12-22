@@ -21,6 +21,7 @@ function Boxes() {
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime()
+    // 全体の回転
     ref.current.rotation.x = Math.sin(time / 4)
     ref.current.rotation.y = Math.sin(time / 2)
     let i = 0
@@ -28,13 +29,17 @@ function Boxes() {
       for (let y = 0; y < 10; y++)
         for (let z = 0; z < 10; z++) {
           const id = i++
+          // 個々のボックスを整列させる
           tempObject.position.set(5 - x, 5 - y, 5 - z)
+          // 個々のボックスの回転
           tempObject.rotation.y = Math.sin(x / 4 + time) + Math.sin(y / 4 + time) + Math.sin(z / 4 + time)
           tempObject.rotation.z = tempObject.rotation.y * 2
+          // ボックスをhoveredだと色を白く
           if (hovered !== previous.current) {
             tempColor.set(id === hovered ? 'white' : colors[id]).toArray(colorArray, id * 3)
             ref.current.geometry.attributes.color.needsUpdate = true
           }
+          // ボックスをhoveredだと大きく
           const scale = id === hovered ? 2 : 1
           tempObject.scale.set(scale, scale, scale)
           tempObject.updateMatrix()
